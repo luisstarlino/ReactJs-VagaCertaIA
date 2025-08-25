@@ -1,13 +1,24 @@
+import Navbar from "~/components/Navbar";
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Vaga Certa" },
+    { name: "description", content: "O jeito certo de se candidatar à vaga dos sonhos!" },
   ];
 }
 
 export default function Home() {
-  return <Welcome />;
+  return <main className={"bg-[url('/images/bg-main.svg')] bg-cover"}>
+
+    {/* Navbar */}
+    <Navbar />
+
+    <section className={"main-section"}>
+      <div className={"page-heading"}>
+        <h1>Melhore suas aplicações e seu Currículo!</h1>
+        <h2>Use a IA para melhorar sua apresentação e encontre o emprego dos sonhos.</h2>
+      </div>
+    </section>
+  </main>;
 }
