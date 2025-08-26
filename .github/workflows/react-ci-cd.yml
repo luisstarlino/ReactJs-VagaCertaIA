@@ -1,0 +1,61 @@
+name: Vaga Certa CI/CD Pipeline
+
+
+on:
+  # Dispara o workflow quando um pull request é fechado (e mesclado).
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+
+# Define os jobs que serão executados neste workflow.
+jobs:
+  build_and_deploy:
+    
+    runs-on: ubuntu-latest
+
+    
+    steps:
+      # 1. Checkout.
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. Node Environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # 3. Dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # 4. Run tests
+      #- name: Run Tests
+      #  run: npm test -- --watchAll=false
+
+      # 5. Buid
+      - name: Build React Application
+        run: npm run build
+
+      # 6. Exemplo de passo para um deploy (opcional).
+      # Este é um placeholder. Você precisará substituir isso com
+      # os comandos de deploy específicos para o seu provedor de hospedagem (e.g., Netlify, Vercel, AWS S3, GitHub Pages).
+      # Para GitHub Pages, você pode usar um action como 'peaceiris/actions-gh-pages'.
+      # Para outros, você pode usar credenciais secretas do GitHub Actions.
+      # - name: Deploy to Hosting Service
+      #   run: |
+      #     echo "Deploying built application..."
+      #     # Exemplo: Copiar arquivos para um bucket S3
+      #     # aws s3 sync ./build s3://your-s3-bucket-name --delete
+      #     # Ou usar um action de deploy:
+      #     # uses: your-deployment-action/name@v1
+      #     # with:
+      #     #   access_token: ${{ secrets.GITHUB_TOKEN }}
+      #     #   branch: gh-pages
+      #     #   folder: build
+      #   env:
+      #     # Exemplo de como usar secrets para credenciais de deploy
+      #     # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     # ... outras variáveis de ambiente necessárias para o deploy
