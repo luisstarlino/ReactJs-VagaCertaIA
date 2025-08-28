@@ -1,4 +1,4 @@
-name: Vaga Certa CI/CD Pipeline
+name: Vaga Certa - Build & Test
 
 on:
   # Dispara quando um PR é aberto, atualizado (novos commits), reaberto ou fechado (mergeado)
