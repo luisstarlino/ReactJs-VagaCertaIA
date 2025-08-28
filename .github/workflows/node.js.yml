@@ -1,0 +1,41 @@
+name: Vaga Certa CI/CD Pipeline
+
+on:
+  # Dispara quando um PR é aberto, atualizado (novos commits), reaberto ou fechado (mergeado)
+  pull_request:
+    branches:
+      - master
+    types: [opened, synchronize, reopened, closed]
+
+  # Dispara também quando há um push direto na master (ex: merge aceito)
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout do repositório
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. Configuração do Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # 3. Instalar dependências
+      - name: Install Dependencies
+        run: npm install
+
+      # 4. Rodar testes somente em Pull Requests
+      - name: Run Tests
+        if: github.event_name == 'pull_request'
+        run: npm test -- --watchAll=false
+
+      # 5. Build (sempre roda, tanto em PR quanto em merge/push)
+      - name: Build React Application
+        run: npm run build
