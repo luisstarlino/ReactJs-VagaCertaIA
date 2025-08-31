@@ -24,7 +24,7 @@ const upload = () => {
 
         // ===== HAS A FORM?
         const form = e.currentTarget.closest('form');
-        if(!form) return; // TODO: CREATE A MODAL HERE!
+        if (!form) return; // TODO: CREATE A MODAL HERE!
         const formData = new FormData(form);
 
         // ===== GET PROPERTIES
@@ -37,7 +37,7 @@ const upload = () => {
             jobTitle,
             jobDescription,
             file
-        })
+        });
     }
 
     return (
