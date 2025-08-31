@@ -5,17 +5,84 @@
 import Navbar from '~/components/Navbar';
 import React, { useState, type FormEvent } from 'react'
 import FileUploader from '~/components/FileUploader';
+import { usePuterStore } from 'lib/puter';
+import { useNavigate } from 'react-router';
+import { convertPdfToImage } from 'lib/pdfToImage';
+import { generateUUID } from 'lib/utils';
+import { prepareInstructions } from 'contants';
 
 const upload = () => {
 
-    // ===== USE EFFECTS =====
-    const [isProcessing, setIsProcessing] = useState(false);
-    const [statusText, setStatusText] = useState('');
+    // ===== CONSTS =====
+    const navigate = useNavigate();
+    const [statusText, setStatusText] = useState<string>('');
     const [file, setFile] = useState<File | null>(null);
+    const { auth, isLoading, fs, ai, kv } = usePuterStore();
+    const [isProcessing, setIsProcessing] = useState(false);
 
     // ===== HANDLE FILE =====
     const handleFileSelect = (file: File | null) => {
         setFile(file);
+    }
+
+    // ===== HANDLE ANALYSE =====
+    const handleAnalyse = async ({ companyName, jobTitle, jobDescription, file }: { companyName: string, jobTitle: string, jobDescription: string, file: File }) => {
+
+        setIsProcessing(true);
+        setStatusText(`Uploading the file...`);
+        try {
+            // ===== 1. Upload File into PuterJS
+            const uploadedFile = await fs.upload([file]);
+            if (!uploadedFile) throw new Error('Error: Failed to upload file');
+
+
+            // ===== 2. Convert PDF to IMAGE
+            setStatusText('Converting to image...');
+            const imageFile = await convertPdfToImage(file);
+            if (!imageFile.file) throw new Error('Error: Failed to convet PDF to image');
+
+            // ===== 3. Upload IMAGE
+            setStatusText('Uploading the image...');
+            const uploadedImage = await fs.upload([imageFile.file]);
+            if (!uploadedImage) throw new Error('Error: Failed to upload image');
+
+            // ===== 4. Prepare data
+            setStatusText('Preparing data...');
+            const uuid = generateUUID();
+            const data = {
+                id: uuid,
+                resumePath: uploadedFile.path,
+                imagePath: uploadedImage.path,
+                companyName,
+                jobTitle,
+                jobDescription,
+                feedback: ''
+            };
+
+            // ===== 5. Send data
+            await kv.set(`resume:${uuid}`, JSON.stringify(data));
+
+            // ===== 6. AI Analysing
+            setStatusText('Analyzing...');
+            const feedback = await ai.feedback(
+                uploadedFile.path,
+                prepareInstructions({ jobTitle, jobDescription })
+            );
+
+            if (!feedback) throw new Error('Error: Failed to analyze resume');
+            const feedbackText = typeof feedback.message.content === 'string' ? feedback.message.content : feedback.message.content[0].text;
+            data.feedback = JSON.parse(feedbackText);
+
+            // ===== 7. Send data again (w/feedback AI)
+            await kv.set(`resume:${uuid}`, JSON.stringify(data));
+            setStatusText("Alaysis Complete, redirecting...");
+            console.log(data);
+
+        } catch (erro: any) {
+            setStatusText(erro);
+        } finally {
+            setIsProcessing(false);
+        }
     }
 
     // ===== ON SUBMIT =====
@@ -28,16 +95,15 @@ const upload = () => {
         const formData = new FormData(form);
 
         // ===== GET PROPERTIES
-        const companyName = formData.get('company-name');
-        const jobTitle = formData.get('job-title');
-        const jobDescription = formData.get('job-description');
+        const companyName = formData.get('company-name') as string;
+        const jobTitle = formData.get('job-title') as string;
+        const jobDescription = formData.get('job-description') as string;
 
-        console.log({
-            companyName,
-            jobTitle,
-            jobDescription,
-            file
-        });
+        if (!file) return; // TODO: CREATE A MODAL HERE!
+
+        // ===== ANALYSE
+        handleAnalyse({ companyName, jobTitle, jobDescription, file })
+
     }
 
     return (
