@@ -34,7 +34,7 @@ jobs:
       # 4. Rodar testes somente em Pull Requests
       - name: Run Tests
         if: github.event_name == 'pull_request'
-        run: npm test -- --watchAll=false
+        run: npm test --watchAll=false
 
       # 5. Build (sempre roda, tanto em PR quanto em merge/push)
       - name: Build React Application
