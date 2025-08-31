@@ -7,7 +7,7 @@
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
-    "test": "echo fake test (for now)"
+    "test": "echo fake test"
   },
   "dependencies": {
     "@react-router/node": "^7.7.1",
