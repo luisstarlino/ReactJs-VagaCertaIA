@@ -77,7 +77,7 @@ const upload = () => {
             // ===== 7. Send data again (w/feedback AI)
             await kv.set(`resume:${uuid}`, JSON.stringify(data));
             setStatusText("Alaysis Complete, redirecting...");
-            console.log(data);
+            navigate(`/resume/${uuid}`);
 
         } catch (erro: any) {
             alert(erro);
