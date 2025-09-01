@@ -15,3 +15,11 @@ export function formatSize(bytes: number): string {
     const gb = mb / 1024;
     return `${gb.toFixed(2)} GB`;
 }
+
+/*****************************************************************************************
+* @Author: Luis Starlino
+* @Date: 2025-08-30 23:55
+* Description: Generate Dynamic UUID 
+* @returns A string uuid
+*****************************************************************************************/
+export const generateUUID = () => crypto.randomUUID();
