@@ -23,6 +23,11 @@ const resume = () => {
     const { auth, isLoading, fs, kv } = usePuterStore();
 
 
+    // ===== IS USER AUTH?
+    useEffect(() => {
+        if (!isLoading && !auth.isAuthenticated) navigate(`auth?next=/resume/:${id}`);
+    }, [isLoading]);
+
     // ===== USE EFFECT =====
     useEffect(() => {
         const loadResume = async () => {
