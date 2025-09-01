@@ -28,6 +28,7 @@ const upload = () => {
     // ===== HANDLE ANALYSE =====
     const handleAnalyse = async ({ companyName, jobTitle, jobDescription, file }: { companyName: string, jobTitle: string, jobDescription: string, file: File }) => {
 
+        debugger;
         setIsProcessing(true);
         setStatusText(`Uploading the file...`);
         try {
@@ -39,7 +40,7 @@ const upload = () => {
             // ===== 2. Convert PDF to IMAGE
             setStatusText('Converting to image...');
             const imageFile = await convertPdfToImage(file);
-            if (!imageFile.file) throw new Error('Error: Failed to convet PDF to image');
+            if (!imageFile.file) throw new Error('Error: Failed to convet PDF to image;');
 
             // ===== 3. Upload IMAGE
             setStatusText('Uploading the image...');
@@ -79,7 +80,8 @@ const upload = () => {
             console.log(data);
 
         } catch (erro: any) {
-            setStatusText(erro);
+            alert(erro);
+            setStatusText('');
         } finally {
             setIsProcessing(false);
         }
