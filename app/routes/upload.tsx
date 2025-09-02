@@ -30,7 +30,7 @@ const upload = () => {
 
         debugger;
         setIsProcessing(true);
-        setStatusText(`Uploading the file...`);
+        setStatusText(`Carregando arquivo...`);
         try {
             // ===== 1. Upload File into PuterJS
             const uploadedFile = await fs.upload([file]);
@@ -38,17 +38,17 @@ const upload = () => {
 
 
             // ===== 2. Convert PDF to IMAGE
-            setStatusText('Converting to image...');
+            setStatusText('Convertendo para imagem...');
             const imageFile = await convertPdfToImage(file);
             if (!imageFile.file) throw new Error('Error: Failed to convet PDF to image;');
 
             // ===== 3. Upload IMAGE
-            setStatusText('Uploading the image...');
+            setStatusText('Enviando imagem...');
             const uploadedImage = await fs.upload([imageFile.file]);
             if (!uploadedImage) throw new Error('Error: Failed to upload image');
 
             // ===== 4. Prepare data
-            setStatusText('Preparing data...');
+            setStatusText('Salvando informações...');
             const uuid = generateUUID();
             const data = {
                 id: uuid,
@@ -64,7 +64,7 @@ const upload = () => {
             await kv.set(`resume:${uuid}`, JSON.stringify(data));
 
             // ===== 6. AI Analysing
-            setStatusText('Analyzing...');
+            setStatusText('Analisando Curriculo x Vaga...');
             const feedback = await ai.feedback(
                 uploadedFile.path,
                 prepareInstructions({ jobTitle, jobDescription })
@@ -76,8 +76,8 @@ const upload = () => {
 
             // ===== 7. Send data again (w/feedback AI)
             await kv.set(`resume:${uuid}`, JSON.stringify(data));
-            setStatusText("Alaysis Complete, redirecting...");
-            console.log(data);
+            setStatusText("Análise Completa, redirecionando...");
+            navigate(`/resume/${uuid}`);
 
         } catch (erro: any) {
             alert(erro);
