@@ -1,3 +1,6 @@
+import {type ClassValue, clsx} from "clsx";
+import {twMerge} from "tailwind-merge";
+
 /*****************************************************************************************
 * @Author: Luis Starlino
 * @Date: 2025-08-30 09:20
@@ -23,3 +26,15 @@ export function formatSize(bytes: number): string {
 * @returns A string uuid
 *****************************************************************************************/
 export const generateUUID = () => crypto.randomUUID();
+
+
+/*****************************************************************************************
+* @Author: Luis Starlino
+* @Date: 2025-09-01 21:10
+* Description: Generate Dynamic Class marge 
+* @param inputs: Classes
+* @returns A string uuid
+*****************************************************************************************/
+export function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs))
+}
