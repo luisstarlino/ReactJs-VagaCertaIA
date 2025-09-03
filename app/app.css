@@ -31,11 +31,11 @@ h1 {
 }
 
 h2 {
-    @apply max-sm:text-xl text-3xl text-dark-200;
+    @apply max-sm:text-xl text-2xl text-gray-700;
 }
 
 label {
-    @apply text-dark-200;
+    @apply text-gray-900 font-semibold;
 }
 input {
     @apply w-full p-4 inset-shadow rounded-2xl focus:outline-none bg-white;
@@ -54,10 +54,10 @@ form {
         @apply bg-clip-text text-transparent bg-gradient-to-r from-[#AB8C95] via-[#000000] to-[#8E97C5];
     }
     .gradient-border {
-        @apply bg-gradient-to-b from-light-blue-100 to-light-blue-200 p-4 rounded-2xl;
+        @apply bg-gradient-to-b from-neutral-50 to-light-blue-200 p-4 rounded-2xl border-blue-300 border;
     }
     .primary-button {
-        @apply primary-gradient text-white rounded-full px-4 py-2 cursor-pointer w-full;
+        @apply primary-gradient text-white rounded-2xl px-4 py-2 cursor-pointer w-full;
     }
     .resume-nav {
         @apply flex flex-row justify-between items-center p-4 border-b border-gray-200;
@@ -97,7 +97,7 @@ form {
     }
 
     .navbar {
-        @apply flex flex-row justify-between items-center bg-white rounded-full p-4 w-full px-10 max-w-[1200px] mx-auto;
+        @apply flex flex-row justify-between items-center bg-white rounded-2xl p-4 w-full px-10 max-w-[1200px] mx-auto;
     }
 
     .score-badge {
@@ -112,7 +112,7 @@ form {
         @apply relative p-8 text-center transition-all duration-700 cursor-pointer bg-white rounded-2xl min-h-[208px];
     }
     .uploader-selected-file {
-        @apply flex items-center justify-between p-3 bg-gray-50 rounded-2xl;
+        @apply flex items-center justify-between p-5 bg-gray-50 rounded-2xl shadow;
     }
 }
 
@@ -129,7 +129,7 @@ form {
 }
 
 @utility primary-gradient {
-    background: linear-gradient(to bottom, #8e98ff, #606beb);
+    background: linear-gradient(to bottom, #00b4d8, #0077b6);
     box-shadow: 0px 74px 21px 0px #6678ef00;
 }
 
