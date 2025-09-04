@@ -35,18 +35,18 @@ const ATS = ({
           alt="ATS"
           className="w-10 h-10"
         />
-        <p className="text-2xl font-semibold">ATS Score - {score}/100</p>
+        <p className="text-2xl font-semibold">Score ATS - {score}/100</p>
       </div>
       <div className="flex flex-col gap-2">
         <p className="font-medium text-xl">
-          How well does your resume pass through Applicant Tracking Systems?
+          Como seu currículo está avaliado no sistema ATS (Applicant Tracking Systems)?
         </p>
-        <p className="text-lg text-gray-500">
-          Your resume was scanned like an employer would. Here's how it
-          performed:
+        <p className="text-lg text-gray-700 mb-2">
+          O seu currículo foi analisado como o de um candidato para a vaga. Aqui está o resumo:
         </p>
+        <hr className='text-gray-900' />
         {suggestions.map((suggestion, index) => (
-          <div className="flex flex-row gap-2 items-center" key={index}>
+          <div className="flex flex-row gap-3 items-center" key={index}>
             <img
               src={
                 suggestion.type === "good"
@@ -56,12 +56,12 @@ const ATS = ({
               alt="ATS"
               className="w-4 h-4"
             />
-            <p className="text-lg text-gray-500">{suggestion.tip}</p>
+            <p className="text-lg text-gray-700">{suggestion.tip}</p>
           </div>
         ))}
-        <p className="text-lg text-gray-500">
-          Want a better score? Improve your resume by applying the suggestions
-          listed below.
+        <hr className='text-gray-900 mt-2' />
+        <p className="text-lg text-gray-700">
+          Quer melhorar? Siga as dicas e sugestões para o seu curriculo lsitadas abaixo.
         </p>
       </div>
     </div>

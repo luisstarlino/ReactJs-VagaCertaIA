@@ -102,39 +102,39 @@ export const AIResponseFormat = `
         score: number; //rate based on ATS suitability
         tips: {
           type: "good" | "improve";
-          tip: string; //give 3-4 tips
+          tip: string; //give 3-4 tips, only here language pt-BR
         }[];
       };
       toneAndStyle: {
         score: number; //max 100
         tips: {
           type: "good" | "improve";
-          tip: string; //make it a short "title" for the actual explanation
-          explanation: string; //explain in detail here
+          tip: string; //make it a short "title" for the actual explanation, only here language pt-BR
+          explanation: string; //explain in detail here, only here language pt-BR
         }[]; //give 3-4 tips
       };
       content: {
         score: number; //max 100
         tips: {
           type: "good" | "improve";
-          tip: string; //make it a short "title" for the actual explanation
-          explanation: string; //explain in detail here
+          tip: string; //make it a short "title" for the actual explanation, only here language pt-BR
+          explanation: string; //explain in detail here, only here language pt-BR
         }[]; //give 3-4 tips
       };
       structure: {
         score: number; //max 100
         tips: {
           type: "good" | "improve";
-          tip: string; //make it a short "title" for the actual explanation
-          explanation: string; //explain in detail here
+          tip: string; //make it a short "title" for the actual explanation, only here language pt-BR
+          explanation: string; //explain in detail here, only here language pt-BR
         }[]; //give 3-4 tips
       };
       skills: {
         score: number; //max 100
         tips: {
           type: "good" | "improve";
-          tip: string; //make it a short "title" for the actual explanation
-          explanation: string; //explain in detail here
+          tip: string; //make it a short "title" for the actual explanation, only here language pt-BR
+          explanation: string; //explain in detail here, only here language pt-BR
         }[]; //give 3-4 tips
       };
     }`;
