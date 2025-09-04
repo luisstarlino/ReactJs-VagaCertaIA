@@ -60,7 +60,7 @@ form {
         @apply primary-gradient text-white rounded-2xl px-4 py-2 cursor-pointer w-full;
     }
     .resume-nav {
-        @apply flex flex-row justify-between items-center p-4 border-b border-gray-200;
+        @apply flex flex-row items-center p-4 border-b border-gray-200 gap-4;
     }
     .resume-summary {
         @apply flex flex-row items-center justify-center p-4 gap-4;

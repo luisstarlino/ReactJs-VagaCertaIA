@@ -15,13 +15,13 @@ import { useModalStore } from 'stores/modalStore';
 const upload = () => {
 
     // ===== CONSTS =====
-    const { openModal } = useModalStore();
     const navigate = useNavigate();
-    const [statusText, setStatusText] = useState<string>('');
+    const { openModal } = useModalStore();
     const [file, setFile] = useState<File | null>(null);
+    const [statusText, setStatusText] = useState<string>('');
     const { auth, isLoading, fs, ai, kv } = usePuterStore();
-    const [hasAgreeWithTerms, setHasAgreeWithTerms] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
+    const [hasAgreeWithTerms, setHasAgreeWithTerms] = useState(false);
 
     // ===== USE EFFECTS =====
     useEffect(() => {
@@ -127,7 +127,7 @@ const upload = () => {
                 jobDescription,
                 feedback: ''
             };
-            const keystoke = `resume:${auth.user?.uuid}:${uuid}`;
+            const keystoke = `resume:${auth.user?.uuid}:${uuid}`; // TODO: REPLACE '-' and test
 
             // ===== 5. Send data
             await kv.set(keystoke, JSON.stringify(data));
