@@ -25,18 +25,22 @@ const auth = () => {
 
   // ===== USE EFFECTS =====
   useEffect(() => {
-
     if (auth.isAuthenticated) navigate(next);
-
   }, [auth.isAuthenticated, next]);
 
+  const handleSignOut = () => {
+     auth.signOut();
+     navigate("/");
+  }
+
   return (
-    <main className={"bg-[url('/images/bg-main.svg')] bg-cover min-h-screen flex items-center justify-center"}>
+    <main className={"bg-[url('/images/new-bg-main.svg')] bg-cover min-h-screen flex items-center justify-center"}>
       <div className='gradient-border shadow-lg'>
         <section className='flex flex-col gap-8 bg-white rounded-2xl p-10'>
           <div className='flex flex-col items-center gap-2 text-center'>
-            <h1>Bem vindo</h1>
-            <h2>Entre pra continuar sua análise</h2>
+            <h2>Bem vindo ao</h2>
+            <h1>Vaga Certa</h1>
+            {!auth.isAuthenticated && <h3 className='mt-5'>Entre pra continuar sua análise</h3>}
           </div>
           <div>
             {isLoading ?
@@ -49,8 +53,8 @@ const auth = () => {
                 <>
                   {auth.isAuthenticated ?
                     (
-                      <button className='auth-button' onClick={auth.signOut}>
-                        <p>Sair</p>
+                      <button className='auth-button' onClick={handleSignOut}>
+                        <p>Sair da Conta</p>
                       </button>
                     ) : (
                       <button className='auth-button' onClick={auth.signIn}>
