@@ -5,11 +5,14 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-function Navbar() {
+function Navbar({ name }: { name?: string }) {
     return (
         <nav className='navbar'>
-            <Link to="/" className='text-2xl font-bold text-gradient'>VAGA CERTA</Link>
-            <Link to={"/upload"} className='primary-button w-fit'>Analisar meu currículo</Link>
+            <div className='flex flex-col justify-center items-start gap-3.5'>
+                <Link to="/" className='text-2xl font-bold text-gradient'>VAGA CERTA</Link>
+                <span>Bem vindo {name ? `, ${name.split("_").join(" ")}` : ''}</span>
+            </div>
+            <Link to={"/upload"} className='primary-button w-fit'>Analisar currículo</Link>
         </nav>
     );
 }

@@ -44,19 +44,19 @@ export default function Home() {
     loadMyResumes();
   }, [])
 
-  return <main className={"bg-[url('/images/bg-main.svg')] bg-cover"}>
+  return <main className={"bg-[url('/images/new-bg-main.svg')] bg-cover"}>
 
     {/* Navbar */}
-    <Navbar />
+    <Navbar name={auth.getUser()?.username} />
 
     <section className={"main-section"}>
 
       {/* TITLE */}
       <div className={"page-heading py-16"}>
-        <h1>Melhore suas aplicações e seu Currículo!</h1>
+        <h1>Melhore suas chances e seu Currículo!</h1>
 
         {!loadingResumes && resumes?.length === 0 ? (
-          <h2>Nenhum arquivo enviado para nossa avaliação.</h2>
+          <h2>Nenhum arquivo enviado ainda para nossa avaliação.</h2>
         ) :
           <h2>Use a IA para melhorar sua apresentação e encontre o emprego dos sonhos.</h2>
         }
@@ -79,7 +79,7 @@ export default function Home() {
 
       {resumes.length === 0 && (
         <div className="flex flex-col items-center justify-center mt-10 gap-4">
-          <Link className="primary-button w-fit text-xl font-semibold" to={`/upload`}>Faça o upload do seu primeiro arquivo</Link>
+          <Link className="primary-button w-fit text-xl font-semibold p-4" to={`/upload`}>Faça o upload do seu primeiro arquivo</Link>
         </div>
       )}
     </section>
