@@ -190,7 +190,7 @@ const upload = () => {
             <Navbar />
 
             <section className={"main-section"}>
-                <div className='page-heading py-16'>
+                <div className='page-heading py-4'>
                     <h1>Feedback instantâneo sobre a sua vaga dos sonhos</h1>
 
                     {/* LOADING EMOJI */}
